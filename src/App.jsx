@@ -1,29 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './GlobalCSS.jsx'
-
-const value = 'O';
+import Box from './Box.jsx'
 
 export default function App() {
+
+  const [turn, setTurn] = useState("X");
+  const [value, setValue] = useState("O");
+  const [boxes, setBoxes] = useState(['X', 'X', '', '', 'O', 'O', '', 'O', 'X']);
+  const [start, setStart] = useState(false);
+
+  const handlestartclick = () => {
+    setBoxes(Array(9).fill(null))
+    setStart(true);
+  }
+
+
+  const handleboxclick = (boxnum) => {
+    if (boxes[boxnum] === null) {
+
+
+      if (turn == 'O') {
+        setValue('O')
+        setTurn('X')
+        let updated = boxes
+        updated[boxnum] = value
+        setBoxes(updated)
+      } else {
+        setValue('X')
+        setTurn('O')
+        let updated = boxes
+        updated[boxnum] = value
+        setBoxes(updated)
+      }
+      console.log(boxes);
+    }
+  }
+
   return (
     <>
       <GlobalStyle />
       <Main>
-        <Container>
+        <Container start={start}>
           <Row>
-            <Box value='X'>X</Box>
-            <Box value='X'>X</Box>
-            <Box></Box>
+            <Box value={boxes[0]} HandleBoxClick={() => handleboxclick(0)} />
+            <Box value={boxes[1]} HandleBoxClick={() => handleboxclick(1)} />
+            <Box value={boxes[2]} HandleBoxClick={() => handleboxclick(2)} />
           </Row>
           <Row>
-            <Box></Box>
-            <Box value='O'>O</Box>
-            <Box value='O'>O</Box>
+            <Box value={boxes[3]} HandleBoxClick={() => handleboxclick(3)} />
+            <Box value={boxes[4]} HandleBoxClick={() => handleboxclick(4)} />
+            <Box value={boxes[5]} HandleBoxClick={() => handleboxclick(5)} />
           </Row>
           <Row>
-            <Box></Box>
-            <Box value='O'>O</Box>
-            <Box value='X'>X</Box>
+            <Box value={boxes[6]} HandleBoxClick={() => handleboxclick(6)} />
+            <Box value={boxes[7]} HandleBoxClick={() => handleboxclick(7)} />
+            <Box value={boxes[8]} HandleBoxClick={() => handleboxclick(8)} />
           </Row>
         </Container>
 
@@ -32,7 +64,8 @@ export default function App() {
           <h3>Circle & Cross</h3>
           <p>The winner is the first person to place three symbols on one (straight) line.</p>
           <hr />
-          <Button>Start Game</Button>
+          <Button start={start} onClick={handlestartclick}>Start Game</Button>
+          <TurnBox start={start}>{value}'s TURN</TurnBox>
         </Desc>
 
       </Main>
@@ -54,6 +87,7 @@ const Container = styled.div`
   height: 450px;
   border-radius: 10px;
   background-color: #1b1e22;
+  box-shadow: ${(props) => props.start === false ? '0px' : '0px 0px 15px #1777ff'};
 `
 
 const Row = styled.div`
@@ -63,23 +97,7 @@ const Row = styled.div`
   margin: 10px;
 `
 
-const Box = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 70px;
-  font-family: "Roboto Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: normal;
-  width: 33%;
-  height: 117px;
-  border-radius: 10px;
-  background-color: #22242a;
-  color: ${(props) => props.value === 'O' ? '#1777ff' : 'white'};
-  margin: 10px;
-  cursor: default;
-`
+
 
 const Desc = styled.div`
 display: flex;
@@ -110,7 +128,7 @@ flex-direction: column;
 `
 
 const Button = styled.div`
-  display: flex;
+  display: ${(props) => props.start === true ? 'none' : 'flex'};
   justify-content: flex-start;
   align-items: center;
   width: 200px;
@@ -128,4 +146,23 @@ const Button = styled.div`
     cursor: pointer;
   }
 
+`
+
+const TurnBox = styled.div`
+  display: ${(props) => props.start === false ? 'none' : 'flex'};
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  border-radius: 3px;
+  background-color: #0a4291;
+  font-size: 35px;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  margin-top: 20px;
+
+  &:hover{
+    cursor: default;
+  }
 `
