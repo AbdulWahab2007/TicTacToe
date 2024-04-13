@@ -8,7 +8,29 @@ export default function App() {
   const [turn, setTurn] = useState("X");
   const [value, setValue] = useState("O");
   const [boxes, setBoxes] = useState(['X', 'X', '', '', 'O', 'O', '', 'O', 'X']);
+                                    // 0    1    2   3   4    5    6   7    8
+  const [win, setWin] = useState(false);
   const [start, setStart] = useState(false);
+  const winner = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ]
+
+
+  const checkwinner = () => {
+    for (let i = 0; i <= 7; i++) {
+      if (boxes[winner[i][0]] == boxes[winner[i][1]] && boxes[winner[i][1]] == boxes[winner[i][2]] && boxes[winner[i][0]] != null ) {
+        console.log("winner")
+        setWin(true)
+      }
+    }
+  }
 
   const handlestartclick = () => {
     setBoxes(Array(9).fill(null))
@@ -17,7 +39,8 @@ export default function App() {
 
 
   const handleboxclick = (boxnum) => {
-    if (boxes[boxnum] === null) {
+    checkwinner();
+    if (boxes[boxnum] === null && win == false) {
 
 
       if (turn == 'O') {
@@ -33,7 +56,6 @@ export default function App() {
         updated[boxnum] = value
         setBoxes(updated)
       }
-      console.log(boxes);
     }
   }
 
