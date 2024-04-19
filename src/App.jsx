@@ -33,7 +33,6 @@ export default function App() {
         break;
       }
     }
-    console.log(winn);
     if (!winn && !boxes.includes(null)) {
       setDraw(true)
     } else if (winn) {
@@ -43,7 +42,7 @@ export default function App() {
     //                           ||
     //                           \/
 
-    
+
     // for (let i = 0; i <= 7; i++) {
     //   if (boxes[winner[i][0]] == boxes[winner[i][1]] && boxes[winner[i][1]] == boxes[winner[i][2]] && boxes[winner[i][0]] != null) {
     //     setWin(true)
@@ -64,103 +63,97 @@ export default function App() {
 
 
   const handleboxclick = (boxnum) => {
+    if (start == true) {
 
-    if (boxes[boxnum] === null && win == false) {
 
 
-      if (turn == 'O') {
-        setValue('O')
-        setTurn('X')
-        let updated = boxes
-        updated[boxnum] = value
-        setBoxes(updated)
-      } else {
-        setValue('X')
-        setTurn('O')
-        let updated = boxes
-        updated[boxnum] = value
-        setBoxes(updated)
+      if (boxes[boxnum] === null && win == false) {
+
+
+        if (turn == 'O') {
+          setValue('O')
+          setTurn('X')
+          let updated = boxes
+          updated[boxnum] = value
+          setBoxes(updated)
+        } else {
+          setValue('X')
+          setTurn('O')
+          let updated = boxes
+          updated[boxnum] = value
+          setBoxes(updated)
+        }
       }
-    }
-    checkwinner();
+      checkwinner();
 
+    }
   }
 
   return (
     <>
       <GlobalStyle />
       <Main>
-        <WinBar win={win} draw={draw}>{draw == true ? "Draw" : turn + " is winner"}</WinBar>
-        <Center>
-
-          <Container start={start}>
-            <Row>
-              <Box value={boxes[0]} HandleBoxClick={() => handleboxclick(0)} />
-              <Box value={boxes[1]} HandleBoxClick={() => handleboxclick(1)} />
-              <Box value={boxes[2]} HandleBoxClick={() => handleboxclick(2)} />
-            </Row>
-            <Row>
-              <Box value={boxes[3]} HandleBoxClick={() => handleboxclick(3)} />
-              <Box value={boxes[4]} HandleBoxClick={() => handleboxclick(4)} />
-              <Box value={boxes[5]} HandleBoxClick={() => handleboxclick(5)} />
-            </Row>
-            <Row>
-              <Box value={boxes[6]} HandleBoxClick={() => handleboxclick(6)} />
-              <Box value={boxes[7]} HandleBoxClick={() => handleboxclick(7)} />
-              <Box value={boxes[8]} HandleBoxClick={() => handleboxclick(8)} />
-            </Row>
-          </Container>
+        <Container start={start}>
+          <Row>
+            <Box value={boxes[0]} HandleBoxClick={() => handleboxclick(0)} />
+            <Box value={boxes[1]} HandleBoxClick={() => handleboxclick(1)} />
+            <Box value={boxes[2]} HandleBoxClick={() => handleboxclick(2)} />
+          </Row>
+          <Row>
+            <Box value={boxes[3]} HandleBoxClick={() => handleboxclick(3)} />
+            <Box value={boxes[4]} HandleBoxClick={() => handleboxclick(4)} />
+            <Box value={boxes[5]} HandleBoxClick={() => handleboxclick(5)} />
+          </Row>
+          <Row>
+            <Box value={boxes[6]} HandleBoxClick={() => handleboxclick(6)} />
+            <Box value={boxes[7]} HandleBoxClick={() => handleboxclick(7)} />
+            <Box value={boxes[8]} HandleBoxClick={() => handleboxclick(8)} />
+          </Row>
+        </Container>
 
 
-          <Desc>
-            <div className="row">
-              <h3>Circle & Cross</h3>
-              <img src="/GameIcon.png" />
-            </div>
-            <p>The winner is the first person to place three symbols on one (straight) line.</p>
-            <hr />
-            <Button start={start} onClick={handlestartclick}>Start Game</Button>
-            <TurnBox start={start}>{value + "'s turn"} </TurnBox>
-            <Anchor win={win} draw={draw} onClick={handlestartclick}><ReloadIcon /> Start Again</Anchor>
-          </Desc>
-
-        </Center>
+        <Desc>
+          <div className="row">
+            <h3>Circle & Cross</h3>
+            <img src="/GameIcon.png" />
+          </div>
+          <p>The winner is the first person to place three symbols on one (straight) line.</p>
+          <hr />
+          <Button start={start} onClick={handlestartclick}>Start Game</Button>
+          <TurnBox start={start} win={win} draw={draw}>{value + "'s turn"} </TurnBox>
+          <WinBadge win={win} draw={draw}>{draw == true ? "Draw" : turn + " is winner"}</WinBadge>
+          <Anchor win={win} draw={draw} onClick={handlestartclick}><ReloadIcon /> Start Again</Anchor>
+        </Desc>
       </Main>
     </>
   )
 }
 const Main = styled.div`
 display: flex;
-flex-direction: column;
 justify-content: center;
 align-items: center;
-width: 95vw;
-height: 87vh;
 background-color: #22242a;
+width: 90vw;
 border-radius: 10px;
+padding: 70px 0px 70px 0px;
 `
-const Center = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-width: 95vw;
-height: 87vh;
-background-color: #22242a;
-border-radius: 10px;
-`
-const WinBar = styled.div`
-  display: ${(props) => props.win === true ? 'flex' : props.draw === true ? 'flex' : 'none'};
+const WinBadge = styled.div`
+  display: ${(props) => props.win === true ? 'flex' : props.draw == true ? 'flex' : 'none'};
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100px;
-  padding-top: 30px;
-  font-size: 70px;
-  font-family: "Roboto Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
+  height: 60px;
+  border-radius: 3px;
+  background-color: #6b9fe8;
+  color: #1b1e22;
+  font-size: 35px;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 500;
   font-style: normal;
-  color: #1777ff;
+  margin-top: 20px;
+  &:hover{
+    cursor: default;
+  }
 `
 
 
@@ -205,6 +198,7 @@ flex-direction: column;
     height: 110px;
     margin-bottom: -55px;
     margin-right: 30px;
+    user-select: none;
   }
   p{
     font-family: "Fira Sans", sans-serif;
@@ -230,7 +224,7 @@ const Anchor = styled.div`
     color: white;
     border-radius: 3px;
     margin-top: 20px;
-    
+    user-select: none;
 `
 
 const Button = styled.div`
@@ -247,7 +241,7 @@ const Button = styled.div`
   font-style: normal;
   margin-top: 20px;
   padding-left: 25px;
-
+  user-select: none;
   &:hover{
     cursor: pointer;
   }
@@ -255,7 +249,7 @@ const Button = styled.div`
 `
 
 const TurnBox = styled.div`
-  display: ${(props) => props.start === false ? 'none' : 'flex'};
+  display: ${(props) => props.start === false ? 'none' : props.win === true ? 'none' : props.draw === true ? 'none' : 'flex'};
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -267,6 +261,7 @@ const TurnBox = styled.div`
   font-weight: 500;
   font-style: normal;
   margin-top: 20px;
+  user-select: none;
   &:hover{
     cursor: default;
   }

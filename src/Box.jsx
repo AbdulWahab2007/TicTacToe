@@ -25,4 +25,5 @@ const StyledBox = styled.div`
   color: ${(props) => props.value === 'O' ? '#1777ff' : 'white'};
   margin: 10px;
   cursor: default;
+  user-select: none;
 `

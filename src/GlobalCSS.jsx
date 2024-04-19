@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components"
+import { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -6,6 +6,8 @@ const GlobalStyle = createGlobalStyle`
         justify-content: center;
         align-items: center;
         background-image: linear-gradient(to bottom left, #196fe7, #1d4680);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
         color: white;
         margin: 0px;
         width: 100%;
