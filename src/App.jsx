@@ -225,6 +225,10 @@ const Anchor = styled.div`
     border-radius: 3px;
     margin-top: 20px;
     user-select: none;
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 23px;
 `
 
 const Button = styled.div`
