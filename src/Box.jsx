@@ -19,11 +19,15 @@ const StyledBox = styled.div`
   font-weight: 800;
   font-style: normal;
   width: 33%;
-  height: 117px;
   border-radius: 10px;
   background-color: #22242a;
   color: ${(props) => props.value === 'O' ? '#1777ff' : 'white'};
   margin: 10px;
   cursor: default;
   user-select: none;
+
+  @media (max-width: 400px) {
+  padding: 6px;
+  font-size: 13vw;
+}
 `

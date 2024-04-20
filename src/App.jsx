@@ -117,7 +117,7 @@ export default function App() {
             <h3>Circle & Cross</h3>
             <img src="/GameIcon.png" />
           </div>
-          <p>The winner is the first person to place three symbols on one (straight) line.</p>
+          <p>The winner is the first person to place three symbols on one (straight) line. | by Abdul Wahab</p>
           <hr />
           <Button start={start} onClick={handlestartclick}>Start Game</Button>
           <TurnBox start={start} win={win} draw={draw}>{value + "'s turn"} </TurnBox>
@@ -135,7 +135,15 @@ align-items: center;
 background-color: #22242a;
 width: 90vw;
 border-radius: 10px;
-padding: 70px 0px 70px 0px;
+padding: 6vw 0px 6vw 0px;
+
+@media (max-width: 400px) {
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 92vw;
+  height: 92vh;
+  padding: 0px;
+}
 `
 const WinBadge = styled.div`
   display: ${(props) => props.win === true ? 'flex' : props.draw == true ? 'flex' : 'none'};
@@ -154,22 +162,37 @@ const WinBadge = styled.div`
   &:hover{
     cursor: default;
   }
+  @media (max-width: 400px) {
+    height : 8vw;
+    font-size: 5vw;
+    margin-top: 0px;
+}
 `
 
 
 const Container = styled.div`
   width: 450px;
-  height: 450px;
+  //height: 450px;
   border-radius: 10px;
   background-color: #1b1e22;
   box-shadow: ${(props) => props.start === true ? '0px 0px 15px #1777ff' : '0px'};
+
+  @media (max-width: 400px) {
+    width: 80vw;
+    padding: 2vw;
+    margin: 10px;
+}
 `
 
 const Row = styled.div`
   display: flex;
   width: 95%;
-  height: 135px;
+  height : 135px;
   margin: 10px;
+
+  @media (max-width: 400px) {
+    height: 25vw;
+}
 `
 
 
@@ -185,6 +208,10 @@ flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+    @media (max-width: 400px) {
+      justify-content: flex-start;
+      margin-top: 3vw;
+}
   }
   h3{
     font-family: "Fira Sans", sans-serif;
@@ -192,6 +219,10 @@ flex-direction: column;
     font-style: normal;
     font-size: 50px;
     margin-bottom: -20px;
+    @media (max-width: 400px) {
+      font-size: 7vw;
+      margin: 0px;
+}
   }
   img{
     width: 110px;
@@ -199,6 +230,13 @@ flex-direction: column;
     margin-bottom: -55px;
     margin-right: 30px;
     user-select: none;
+
+    @media (max-width: 400px) {
+      width: 14vw;
+      height: 14vw;
+      margin-top: -50px;
+      margin-left: 10px;
+}
   }
   p{
     font-family: "Fira Sans", sans-serif;
@@ -206,20 +244,38 @@ flex-direction: column;
     font-style: normal;
     font-size: 23px;
     color: #7e7f84;
+    @media (max-width: 400px) {
+      font-size: 3vw;
+      margin-right: 30px;
+      margin-top: 25px
+}
   }
   hr{
     height: 3px;
     width: 100%;
     background-color: #b5b7be;
     border: none;
+
+    @media (max-width: 400px) {
+      height: 2px;
+}
   }
+
+
+  @media (max-width: 400px) {
+      height: auto;
+      margin: 0px;
+      width: 80vw;
+      justify-content: flex-start;
+      align-items: flex-start;
+}
 `
 const Anchor = styled.div`
     display:  ${(props) => props.win === true ? 'flex' : props.draw == true ? 'flex' : 'none'};
     justify-content: center;
     align-items: center;
     width: 65%;
-    height: 70px;
+    height: 60px;
     background-color: #4377bf;
     color: white;
     border-radius: 3px;
@@ -229,6 +285,16 @@ const Anchor = styled.div`
     font-weight: 400;
     font-style: normal;
     font-size: 23px;
+    white-space: nowrap;
+    padding-right: 30px;
+
+    @media (max-width: 400px) {
+      height : 7vw;
+      font-size: 4vw;
+      margin-top: 1vw;
+      white-space: nowrap;
+      padding-right: 28vw;
+}
 `
 
 const Button = styled.div`
@@ -250,6 +316,14 @@ const Button = styled.div`
     cursor: pointer;
   }
 
+
+  @media (max-width: 400px) {
+    width: 60%;
+    height: 8vw;
+    font-size: 3.5vw;
+    margin-top: 2px;
+    padding-left: 3vw;
+}
 `
 
 const TurnBox = styled.div`
@@ -269,4 +343,10 @@ const TurnBox = styled.div`
   &:hover{
     cursor: default;
   }
+
+  @media (max-width: 400px) {
+    height: 7vw;
+    font-size: 4vw;
+    margin-top: 1vw;
+}
 `
