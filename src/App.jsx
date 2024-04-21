@@ -26,6 +26,8 @@ export default function App() {
 
 
   const checkwinner = () => {
+    const victory = new Audio("./Victory.mp3")
+    const draw = new Audio("./Draw.mp3")
     let winn = false
     for (let i = 0; i <= 7; i++) {
       if (boxes[winner[i][0]] == boxes[winner[i][1]] && boxes[winner[i][1]] == boxes[winner[i][2]] && boxes[winner[i][0]] != null) {
@@ -35,8 +37,10 @@ export default function App() {
     }
     if (!winn && !boxes.includes(null)) {
       setDraw(true)
+      draw.play()
     } else if (winn) {
       setWin(true)
+      victory.play()
     }
     //This logic is not working  ||
     //                           ||
@@ -63,11 +67,14 @@ export default function App() {
 
 
   const handleboxclick = (boxnum) => {
+
     if (start == true) {
 
 
 
       if (boxes[boxnum] === null && win == false) {
+        const click = new Audio("./Click.mp3")
+        click.play()
 
 
         if (turn == 'O') {
@@ -137,7 +144,7 @@ width: 90vw;
 border-radius: 10px;
 padding: 6vw 0px 6vw 0px;
 
-@media (max-width: 400px) {
+@media (max-width: 900px) {
   flex-direction: column;
   justify-content: flex-start;
   width: 92vw;
@@ -162,7 +169,7 @@ const WinBadge = styled.div`
   &:hover{
     cursor: default;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
     height : 8vw;
     font-size: 5vw;
     margin-top: 0px;
@@ -177,7 +184,7 @@ const Container = styled.div`
   background-color: #1b1e22;
   box-shadow: ${(props) => props.start === true ? '0px 0px 15px #1777ff' : '0px'};
 
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
     width: 80vw;
     padding: 2vw;
     margin: 10px;
@@ -190,7 +197,7 @@ const Row = styled.div`
   height : 135px;
   margin: 10px;
 
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
     height: 25vw;
 }
 `
@@ -208,7 +215,7 @@ flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    @media (max-width: 400px) {
+    @media (max-width: 900px) {
       justify-content: flex-start;
       margin-top: 3vw;
 }
@@ -219,7 +226,7 @@ flex-direction: column;
     font-style: normal;
     font-size: 50px;
     margin-bottom: -20px;
-    @media (max-width: 400px) {
+    @media (max-width: 900px) {
       font-size: 7vw;
       margin: 0px;
 }
@@ -231,7 +238,7 @@ flex-direction: column;
     margin-right: 30px;
     user-select: none;
 
-    @media (max-width: 400px) {
+    @media (max-width: 900px) {
       width: 14vw;
       height: 14vw;
       margin-top: -50px;
@@ -244,7 +251,7 @@ flex-direction: column;
     font-style: normal;
     font-size: 23px;
     color: #7e7f84;
-    @media (max-width: 400px) {
+    @media (max-width: 900px) {
       font-size: 3vw;
       margin-right: 30px;
       margin-top: 25px
@@ -256,13 +263,13 @@ flex-direction: column;
     background-color: #b5b7be;
     border: none;
 
-    @media (max-width: 400px) {
+    @media (max-width: 900px) {
       height: 2px;
 }
   }
 
 
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
       height: auto;
       margin: 0px;
       width: 80vw;
@@ -288,7 +295,7 @@ const Anchor = styled.div`
     white-space: nowrap;
     padding-right: 30px;
 
-    @media (max-width: 400px) {
+    @media (max-width: 900px) {
       height : 7vw;
       font-size: 4vw;
       margin-top: 1vw;
@@ -317,7 +324,7 @@ const Button = styled.div`
   }
 
 
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
     width: 60%;
     height: 8vw;
     font-size: 3.5vw;
@@ -344,7 +351,7 @@ const TurnBox = styled.div`
     cursor: default;
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
     height: 7vw;
     font-size: 4vw;
     margin-top: 1vw;

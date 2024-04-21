@@ -26,7 +26,7 @@ const StyledBox = styled.div`
   cursor: default;
   user-select: none;
 
-  @media (max-width: 400px) {
+  @media (max-width: 900px) {
   padding: 6px;
   font-size: 13vw;
 }
