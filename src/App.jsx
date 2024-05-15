@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import GlobalStyle from './GlobalCSS.jsx'
-import Box from './Box.jsx'
-import ReloadIcon from './ReloadIcon.jsx'
+import GlobalStyle from './components/GlobalCSS.jsx'
+import Box from './components/Box.jsx'
+import ReloadIcon from './components/icons/ReloadIcon.jsx'
 
 export default function App() {
 
   const [turn, setTurn] = useState("X");
   const [value, setValue] = useState("O");
   const [boxes, setBoxes] = useState(['X', 'X', '', '', 'O', 'O', '', 'O', 'X']);
-  // 0    1    2   3   4    5    6   7    8
   const [win, setWin] = useState(false);
   const [draw, setDraw] = useState(false);
   const [start, setStart] = useState(false);
@@ -26,8 +25,8 @@ export default function App() {
 
 
   const checkwinner = () => {
-    const victory = new Audio("./Victory.mp3")
-    const draw = new Audio("./Draw.mp3")
+    const victory = new Audio("./public/assets/Victory.mp3")
+    const drawAudio = new Audio("./public/assets/Draw.mp3")
     let winn = false
     for (let i = 0; i <= 7; i++) {
       if (boxes[winner[i][0]] == boxes[winner[i][1]] && boxes[winner[i][1]] == boxes[winner[i][2]] && boxes[winner[i][0]] != null) {
@@ -37,25 +36,14 @@ export default function App() {
     }
     if (!winn && !boxes.includes(null)) {
       setDraw(true)
-      draw.play()
+      drawAudio.play()
     } else if (winn) {
       setWin(true)
       victory.play()
     }
-    //This logic is not working  ||
-    //                           ||
-    //                           \/
-
-
-    // for (let i = 0; i <= 7; i++) {
-    //   if (boxes[winner[i][0]] == boxes[winner[i][1]] && boxes[winner[i][1]] == boxes[winner[i][2]] && boxes[winner[i][0]] != null) {
-    //     setWin(true)
-    //     break;
-    //   }else if(!boxes.includes(null) && !win){
-    //     setDraw(true)
-    //     console.log("draw")
-    //   }
-    // }
+    if (win) {
+      victory.play()
+    }
   }
 
   const handlestartclick = () => {
@@ -73,7 +61,7 @@ export default function App() {
 
 
       if (boxes[boxnum] === null && win == false) {
-        const click = new Audio("./Click.mp3")
+        const click = new Audio("./public/assets/Click.mp3")
         click.play()
 
 
@@ -91,7 +79,10 @@ export default function App() {
           setBoxes(updated)
         }
       }
-      checkwinner();
+
+      if (!win && !draw) {
+        checkwinner();
+      }
 
     }
   }
@@ -102,19 +93,19 @@ export default function App() {
       <Main>
         <Container start={start}>
           <Row>
-            <Box value={boxes[0]} HandleBoxClick={() => handleboxclick(0)} />
-            <Box value={boxes[1]} HandleBoxClick={() => handleboxclick(1)} />
-            <Box value={boxes[2]} HandleBoxClick={() => handleboxclick(2)} />
+            <Box value={boxes[0]} handleboxclick={() => handleboxclick(0)} />
+            <Box value={boxes[1]} handleboxclick={() => handleboxclick(1)} />
+            <Box value={boxes[2]} handleboxclick={() => handleboxclick(2)} />
           </Row>
           <Row>
-            <Box value={boxes[3]} HandleBoxClick={() => handleboxclick(3)} />
-            <Box value={boxes[4]} HandleBoxClick={() => handleboxclick(4)} />
-            <Box value={boxes[5]} HandleBoxClick={() => handleboxclick(5)} />
+            <Box value={boxes[3]} handleboxclick={() => handleboxclick(3)} />
+            <Box value={boxes[4]} handleboxclick={() => handleboxclick(4)} />
+            <Box value={boxes[5]} handleboxclick={() => handleboxclick(5)} />
           </Row>
           <Row>
-            <Box value={boxes[6]} HandleBoxClick={() => handleboxclick(6)} />
-            <Box value={boxes[7]} HandleBoxClick={() => handleboxclick(7)} />
-            <Box value={boxes[8]} HandleBoxClick={() => handleboxclick(8)} />
+            <Box value={boxes[6]} handleboxclick={() => handleboxclick(6)} />
+            <Box value={boxes[7]} handleboxclick={() => handleboxclick(7)} />
+            <Box value={boxes[8]} handleboxclick={() => handleboxclick(8)} />
           </Row>
         </Container>
 
@@ -122,7 +113,7 @@ export default function App() {
         <Desc>
           <div className="row">
             <h3>Circle & Cross</h3>
-            <img src="/GameIcon.png" />
+            <img src="/public/assets/GameIcon.png" />
           </div>
           <p>The winner is the first person to place three symbols on one (straight) line. | by Abdul Wahab</p>
           <hr />
@@ -179,7 +170,6 @@ const WinBadge = styled.div`
 
 const Container = styled.div`
   width: 450px;
-  //height: 450px;
   border-radius: 10px;
   background-color: #1b1e22;
   box-shadow: ${(props) => props.start === true ? '0px 0px 15px #1777ff' : '0px'};

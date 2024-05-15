@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 export default function Box(props) {
+  const { value, handleboxclick } = props
   return (
-    <StyledBox value={props.value} onClick={props.HandleBoxClick}>
-      {props.value}
+    <StyledBox value={value} onClick={handleboxclick}>
+      {value}
     </StyledBox>
   )
 }
